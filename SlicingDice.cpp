@@ -19,12 +19,20 @@ SlicingDice::SlicingDice(const char* apiUserKey, const char* customHost, int cus
     apiKey = apiUserKey;
 }
 
+/* Index data on Slicing Dice API
+ *
+ * query - the query to send to Slicing Dice API
+ */
 void SlicingDice::index(JsonObject& query) {
     char queryConverted[query.measureLength() +  1];
     query.printTo(queryConverted, sizeof(queryConverted));
     makeRequest(queryConverted);
 }
 
+/* Make a HTTP request to Slicing Dice API 
+ * 
+ * query - the query to send to Slicing Dice API
+ */
 void SlicingDice::makeRequest(const char* query){
     client.connect(host, port);
     while (!client.connected()) {
@@ -42,6 +50,7 @@ void SlicingDice::makeRequest(const char* query){
     client.stop();
 }
 
+//Read response from HTTP request to Slicing Dice API
 void SlicingDice::readResponse(){
     response = " ";
     boolean currentLineIsBlank = true;
