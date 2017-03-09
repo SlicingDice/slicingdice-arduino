@@ -9,7 +9,7 @@ void setup() {
     while (!Serial) {
     }
 
-    // Arduino network settings
+    // Arduino network settings, should match your internet connection properties
     byte mac[] = {  0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
     byte ip[] = { 192, 168, 1, 10 };
     byte gateway[] = { 192, 168, 1, 1 }; 
@@ -18,6 +18,7 @@ void setup() {
     Ethernet.begin(mac, ip, dnxs, gateway, subnet);
 }
 
+// Send an indexation command to Slicing Dice API and print the result
 void loop() {
     StaticJsonBuffer<200> jsonBuffer;
     JsonObject& queryIndex = jsonBuffer.createObject();
