@@ -10,6 +10,7 @@ public:
 	SlicingDice(const char* apiUserKey);
 	SlicingDice(const char* apiUserKey, const char* customHost);
 	SlicingDice(const char* apiUserKey, const char* customHost, int customPort);
+  	SlicingDice(const char* apiUserKey, const char* customHost, int customPort, int customTest);
 
 	void index(JsonObject& query);
 	int statusCode;
@@ -22,5 +23,6 @@ private:
 	const char* apiKey;
 	const char* host;
 	int port;
+  	int test;
 	EthernetClient client;
 };

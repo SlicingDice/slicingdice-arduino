@@ -2,21 +2,31 @@
 
 
 SlicingDice::SlicingDice(const char* apiUserKey) {
-    host = "api.slicingdice.com/v1";
+    host = "api.slicingdice.com";
     port = 80;
     apiKey = apiUserKey;
+    test = 0;
 }
 
 SlicingDice::SlicingDice(const char* apiUserKey, const char* customHost) {
     host = customHost;
     port = 80;
     apiKey = apiUserKey;
+    test = 0;
 }
 
 SlicingDice::SlicingDice(const char* apiUserKey, const char* customHost, int customPort) {
     host = customHost;
     port = customPort;
     apiKey = apiUserKey;
+    test = 0;
+}
+
+SlicingDice::SlicingDice(const char* apiUserKey, const char* customHost, int customPort, int customTest) {
+    host = customHost;
+    port = customPort;
+    apiKey = apiUserKey;
+    test = customTest;
 }
 
 /* Index data on Slicing Dice API
@@ -39,8 +49,14 @@ void SlicingDice::makeRequest(const char* query){
         client.connect(host, port);
     }
 
-    client.println(F("POST /index/ HTTP/1.1"));
+    client.print(F("POST /v1/"));
+    if (test == 1) {
+      client.print("test/");
+    }
+    client.println(F("index/ HTTP/1.1"));
     client.println(F("Content-Type: application/json"));
+    client.print(F("Authorization: "));
+    client.println(apiKey);
     client.println(F("Connection: close"));
     client.print(F("Content-Length: "));
     client.println(strlen(query));
