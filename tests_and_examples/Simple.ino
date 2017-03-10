@@ -2,10 +2,10 @@
 #include <ArduinoJson.h>
 
 // Demo API key, if you need a new demo API key visit: https://panel.slicingdice.com/docs/#api-details-api-connection-api-keys-demo-key
-const char* apiKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfX3NhbHQiOiJkZW1vNTZtIiwicGVybWlzc2lvbl9sZXZlbCI6MywicHJvamVjdF9pZCI6MjE3LCJjbGllbnRfaWQiOjEwfQ.rKHWahhcTN8Hvhns8-O2_KwjC_b3SFHd3kqZLyDMrfc";
+String apiKey = String("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfX3NhbHQiOiJkZW1vNTZtIiwicGVybWlzc2lvbl9sZXZlbCI6MywicHJvamVjdF9pZCI6MjE3LCJjbGllbnRfaWQiOjEwfQ.rKHWahhcTN8Hvhns8-O2_KwjC_b3SFHd3kqZLyDMrfc");
 const char* host = "api.slicingdice.com";
-int port = 8080;
-// test = 1 indicates that will use test endpoint, 0 indicates will use production end-point
+int port = 80;
+// test = 1 indicates that will use test end-point, 0 indicates will use production end-point
 int test = 1;
 SlicingDice sd = SlicingDice(apiKey, host, port, test);
 
@@ -30,6 +30,7 @@ void loop() {
     JsonObject& queryIndex = jsonBuffer.createObject();
     JsonObject& nestedQueryIndex = queryIndex.createNestedObject("user1@slicingdice.com");
     nestedQueryIndex["age"] = 22;
+    queryIndex["auto-create-fields"] = true;
     sd.index(queryIndex);
     Serial.print("Status code: ");
     Serial.println(sd.statusCode);

@@ -1,28 +1,28 @@
 #include "SlicingDice.h"
 
 
-SlicingDice::SlicingDice(const char* apiUserKey) {
+SlicingDice::SlicingDice(String apiUserKey) {
     host = "api.slicingdice.com";
     port = 80;
     apiKey = apiUserKey;
     test = 0;
 }
 
-SlicingDice::SlicingDice(const char* apiUserKey, const char* customHost) {
+SlicingDice::SlicingDice(String apiUserKey, const char* customHost) {
     host = customHost;
     port = 80;
     apiKey = apiUserKey;
     test = 0;
 }
 
-SlicingDice::SlicingDice(const char* apiUserKey, const char* customHost, int customPort) {
+SlicingDice::SlicingDice(String apiUserKey, const char* customHost, int customPort) {
     host = customHost;
     port = customPort;
     apiKey = apiUserKey;
     test = 0;
 }
 
-SlicingDice::SlicingDice(const char* apiUserKey, const char* customHost, int customPort, int customTest) {
+SlicingDice::SlicingDice(String apiUserKey, const char* customHost, int customPort, int customTest) {
     host = customHost;
     port = customPort;
     apiKey = apiUserKey;
@@ -49,19 +49,21 @@ void SlicingDice::makeRequest(const char* query){
         client.connect(host, port);
     }
 
-    client.print(F("POST /v1/"));
+    String testEndPoint = String("");
+
     if (test == 1) {
-      client.print("test/");
+        testEndPoint = String("test/");
     }
-    client.println(F("index/ HTTP/1.1"));
+
+    client.println("POST /v1/" + testEndPoint + "index HTTP/1.1");
     client.println(F("Content-Type: application/json"));
-    client.print(F("Authorization: "));
-    client.println(apiKey);
+    client.println("Authorization: " + apiKey);
     client.println(F("Connection: close"));
-    client.print(F("Content-Length: "));
-    client.println(strlen(query));
+
+    String actualLength = String(strlen(query));
+    client.println("Content-Length: " + actualLength);
     client.println();
-    client.print(query);
+    client.println(query);
     readResponse();    
     client.stop();
 }
