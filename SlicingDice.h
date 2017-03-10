@@ -18,6 +18,7 @@ public:
 
 private:
 	void makeRequest(const char* query);
+  	void construct(String apiUserKey, const char* customHost, int customPort, boolean production);
 	void readResponse();
 
 	String apiKey;
