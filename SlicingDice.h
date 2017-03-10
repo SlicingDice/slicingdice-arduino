@@ -7,9 +7,10 @@
 class SlicingDice {
 
 public:
-	SlicingDice(const char* apiUserKey);
-	SlicingDice(const char* apiUserKey, const char* customHost);
-	SlicingDice(const char* apiUserKey, const char* customHost, int customPort);
+	SlicingDice(String apiUserKey);
+	SlicingDice(String apiUserKey, const char* customHost);
+	SlicingDice(String apiUserKey, const char* customHost, int customPort);
+  	SlicingDice(String apiUserKey, const char* customHost, int customPort, boolean production);
 
 	void index(JsonObject& query);
 	int statusCode;
@@ -17,10 +18,12 @@ public:
 
 private:
 	void makeRequest(const char* query);
+  	void construct(String apiUserKey, const char* customHost, int customPort, boolean production);
 	void readResponse();
 
-	const char* apiKey;
+	String apiKey;
 	const char* host;
 	int port;
+	boolean useProduction;
 	EthernetClient client;
 };

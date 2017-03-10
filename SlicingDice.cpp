@@ -1,22 +1,27 @@
 #include "SlicingDice.h"
 
 
-SlicingDice::SlicingDice(const char* apiUserKey) {
-    host = "api.slicingdice.com/v1";
-    port = 80;
-    apiKey = apiUserKey;
+SlicingDice::SlicingDice(String apiUserKey) {
+    construct(apiUserKey, "api.slicingdice.com", 80, true);
 }
 
-SlicingDice::SlicingDice(const char* apiUserKey, const char* customHost) {
-    host = customHost;
-    port = 80;
-    apiKey = apiUserKey;
+SlicingDice::SlicingDice(String apiUserKey, const char* customHost) {
+    construct(apiUserKey, customHost, 80, true);
 }
 
-SlicingDice::SlicingDice(const char* apiUserKey, const char* customHost, int customPort) {
+SlicingDice::SlicingDice(String apiUserKey, const char* customHost, int customPort) {
+    construct(apiUserKey, customHost, customPort, true);
+}
+
+SlicingDice::SlicingDice(String apiUserKey, const char* customHost, int customPort, boolean production) {
+    construct(apiUserKey, customHost, customPort, production);
+}
+
+void SlicingDice::construct(String apiUserKey, const char* customHost, int customPort, boolean production) {
     host = customHost;
     port = customPort;
     apiKey = apiUserKey;
+    useProduction = production;
 }
 
 /* Index data on Slicing Dice API
@@ -39,13 +44,23 @@ void SlicingDice::makeRequest(const char* query){
         client.connect(host, port);
     }
 
-    client.println(F("POST /index/ HTTP/1.1"));
+    String testEndPoint = String("");
+
+    if (!useProduction) {
+        testEndPoint = String("test/");
+    }
+
+    client.println("POST /v1/" + testEndPoint + "index HTTP/1.1");
     client.println(F("Content-Type: application/json"));
+    String hostString = String(host);
+    client.println("Host: " + hostString);
+    client.println("Authorization: " + apiKey);
     client.println(F("Connection: close"));
-    client.print(F("Content-Length: "));
-    client.println(strlen(query));
-    client.println();
-    client.print(query);
+
+    String actualLength = String(strlen(query));
+    client.println("Content-Length: " + actualLength);
+    client.println();  
+    client.println(query);
     readResponse();    
     client.stop();
 }
