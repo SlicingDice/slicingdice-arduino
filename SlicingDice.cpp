@@ -57,12 +57,14 @@ void SlicingDice::makeRequest(const char* query){
 
     client.println("POST /v1/" + testEndPoint + "index HTTP/1.1");
     client.println(F("Content-Type: application/json"));
+    String hostString = String(host);
+    client.println("Host: " + hostString);
     client.println("Authorization: " + apiKey);
     client.println(F("Connection: close"));
 
     String actualLength = String(strlen(query));
     client.println("Content-Length: " + actualLength);
-    client.println();
+    client.println();  
     client.println(query);
     readResponse();    
     client.stop();
