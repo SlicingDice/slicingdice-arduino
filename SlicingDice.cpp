@@ -5,28 +5,28 @@ SlicingDice::SlicingDice(String apiUserKey) {
     host = "api.slicingdice.com";
     port = 80;
     apiKey = apiUserKey;
-    test = 0;
+    useProduction = true;
 }
 
 SlicingDice::SlicingDice(String apiUserKey, const char* customHost) {
     host = customHost;
     port = 80;
     apiKey = apiUserKey;
-    test = 0;
+    useProduction = true;
 }
 
 SlicingDice::SlicingDice(String apiUserKey, const char* customHost, int customPort) {
     host = customHost;
     port = customPort;
     apiKey = apiUserKey;
-    test = 0;
+    useProduction = true;
 }
 
-SlicingDice::SlicingDice(String apiUserKey, const char* customHost, int customPort, int customTest) {
+SlicingDice::SlicingDice(String apiUserKey, const char* customHost, int customPort, boolean production) {
     host = customHost;
     port = customPort;
     apiKey = apiUserKey;
-    test = customTest;
+    useProduction = production;
 }
 
 /* Index data on Slicing Dice API
@@ -51,11 +51,12 @@ void SlicingDice::makeRequest(const char* query){
 
     String testEndPoint = String("");
 
-    if (test == 1) {
+    if (!useProduction) {
         testEndPoint = String("test/");
     }
 
     client.println("POST /v1/" + testEndPoint + "index HTTP/1.1");
+    Serial.println("POST /v1/" + testEndPoint + "index HTTP/1.1");
     client.println(F("Content-Type: application/json"));
     String hostString = String(host);
     client.println("Host: " + hostString);

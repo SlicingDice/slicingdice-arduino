@@ -2,12 +2,12 @@
 #include <ArduinoJson.h>
 
 // Demo API key, if you need a new demo API key visit: https://panel.slicingdice.com/docs/#api-details-api-connection-api-keys-demo-key
-String apiKey = String("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfX3NhbHQiOiJkZW1vNTZtIiwicGVybWlzc2lvbl9sZXZlbCI6MywicHJvamVjdF9pZCI6MjE3LCJjbGllbnRfaWQiOjEwfQ.rKHWahhcTN8Hvhns8-O2_KwjC_b3SFHd3kqZLyDMrfc");
+String apiKey = String("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfX3NhbHQiOiJkZW1vMThtIiwicGVybWlzc2lvbl9sZXZlbCI6MywicHJvamVjdF9pZCI6MTc5LCJjbGllbnRfaWQiOjEwfQ.OTb6REW9JtYF9wVUZhXajq4wheU5ULNbM5iEmMCYhhM");
 const char* host = "api.slicingdice.com";
 int port = 80;
-// test = 1 indicates that will use test end-point, 0 indicates will use production end-point
-int test = 1;
-SlicingDice sd = SlicingDice(apiKey, host, port, test);
+// if false will use test end-point, otherwise production end-point
+int useProduction = false;
+SlicingDice sd = SlicingDice(apiKey, host, port, useProduction);
 
 void setup() {
     // Open serial communications and wait for port to open:
