@@ -77,7 +77,7 @@ Whether you want to test the client installation or simply check more examples o
 
 `SlicingDice(const char* apiKey, boolean production)`
 * `apiKey (const char*)` - [API key](http://panel.slicingdice.com/docs/#api-details-api-connection-api-keys) to authenticate requests with the SlicingDice API.
-* `production(boolean)` - If true the client will send requests to production end-point, otherwise to tests end-point
+* `production(boolean)` - If true the client will send requests to production end-point, otherwise to tests end-point.
 
 `SlicingDice(const char* apiKey, const char* host)`
 * `apiKey (const char*)` - [API key](http://panel.slicingdice.com/docs/#api-details-api-connection-api-keys) to authenticate requests with the SlicingDice API.
@@ -92,7 +92,7 @@ Whether you want to test the client installation or simply check more examples o
 * `apiKey (const char*)` - [API key](http://panel.slicingdice.com/docs/#api-details-api-connection-api-keys) to authenticate requests with the SlicingDice API.
 * `host (const char*)` - [Connection endpoint](http://panel.slicingdice.com/docs/#api-details-api-connection-connection-endpoints) to use when generating requests to SlicingDice.
 * `port (int)` - Port to connect to when generating requests. Particularly useful when connect to `http://localhost`.
-* `production(boolean)` - If true the client will send requests to production end-point, otherwise to tests end-point
+* `production(boolean)` - If true the client will send requests to production end-point, otherwise to tests end-point.
 
 ### `void index(JsonObject& query)`
 Index data to existing entities or create new entities, if necessary. This method corresponds to a [POST request at /index](http://panel.slicingdice.com/docs/#api-details-api-endpoints-post-index).
