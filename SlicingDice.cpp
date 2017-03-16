@@ -1,8 +1,8 @@
 #include "SlicingDice.h"
 
 
-SlicingDice::SlicingDice(String apiUserKey) {
-    construct(apiUserKey, "api.slicingdice.com", 80, true);
+SlicingDice::SlicingDice(String apiUserKey, boolean production) {
+    construct(apiUserKey, "api.slicingdice.com", 80, production);
 }
 
 SlicingDice::SlicingDice(String apiUserKey, const char* customHost) {

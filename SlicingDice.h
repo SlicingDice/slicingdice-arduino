@@ -7,7 +7,7 @@
 class SlicingDice {
 
 public:
-	SlicingDice(String apiUserKey);
+	SlicingDice(String apiUserKey, boolean production);
 	SlicingDice(String apiUserKey, const char* customHost);
 	SlicingDice(String apiUserKey, const char* customHost, int customPort);
   	SlicingDice(String apiUserKey, const char* customHost, int customPort, boolean production);
