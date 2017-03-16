@@ -18,8 +18,8 @@ void setup() {
     byte ip[] = { 192, 168, 0, 10 };
     byte gateway[] = { 192, 168, 0, 1 }; 
     byte subnet[] = { 255, 255, 255, 0 };
-    byte dnxs[] = { 8, 8, 8, 8 };
-    Ethernet.begin(mac, ip, dnxs, gateway, subnet);
+    byte dns[] = { 8, 8, 8, 8 };
+    Ethernet.begin(mac, ip, dns, gateway, subnet);
 }
 
 // Send an indexation command to Slicing Dice API and print the result

@@ -37,8 +37,8 @@ void setup() {
     byte ip[] = { 192, 168, 0, 10 };
     byte gateway[] = { 192, 168, 0, 1 }; 
     byte subnet[] = { 255, 255, 255, 0 };
-    byte dnxs[] = { 8, 8, 8, 8 };
-    Ethernet.begin(mac, ip, dnxs, gateway, subnet);
+    byte dns[] = { 8, 8, 8, 8 };
+    Ethernet.begin(mac, ip, dns, gateway, subnet);
 }
 
 // Send an indexation command to Slicing Dice API and print the result
@@ -75,24 +75,11 @@ Whether you want to test the client installation or simply check more examples o
 
 ### Constructors
 
-`SlicingDice(const char* apiKey, boolean production)`
+`SlicingDice(const char* apiKey, boolean production, const char* host, int port)`
 * `apiKey (const char*)` - [API key](http://panel.slicingdice.com/docs/#api-details-api-connection-api-keys) to authenticate requests with the SlicingDice API.
-* `production(boolean)` - If true the client will send requests to production end-point, otherwise to tests end-point.
-
-`SlicingDice(const char* apiKey, const char* host)`
-* `apiKey (const char*)` - [API key](http://panel.slicingdice.com/docs/#api-details-api-connection-api-keys) to authenticate requests with the SlicingDice API.
-* `host (const char*)` - [Connection endpoint](http://panel.slicingdice.com/docs/#api-details-api-connection-connection-endpoints) to use when generating requests to SlicingDice.
-
-`SlicingDice(const char* apiKey, const char* host, int port)`
-* `apiKey (const char*)` - [API key](http://panel.slicingdice.com/docs/#api-details-api-connection-api-keys) to authenticate requests with the SlicingDice API.
-* `host (const char*)` - [Connection endpoint](http://panel.slicingdice.com/docs/#api-details-api-connection-connection-endpoints) to use when generating requests to SlicingDice.
-* `port (int)` - Port to connect to when generating requests. Particularly useful when connect to `http://localhost`.
-
-`SlicingDice(const char* apiKey, const char* host, int port, boolean production)`
-* `apiKey (const char*)` - [API key](http://panel.slicingdice.com/docs/#api-details-api-connection-api-keys) to authenticate requests with the SlicingDice API.
-* `host (const char*)` - [Connection endpoint](http://panel.slicingdice.com/docs/#api-details-api-connection-connection-endpoints) to use when generating requests to SlicingDice.
-* `port (int)` - Port to connect to when generating requests. Particularly useful when connect to `http://localhost`.
-* `production(boolean)` - If true the client will send requests to production end-point, otherwise to tests end-point.
+* `production(boolean)` - (Default: true) If true the client will send requests to production end-point, otherwise to tests end-point.
+* `host (const char*)` - (Default: api.slicingdice.com) [Connection endpoint](http://panel.slicingdice.com/docs/#api-details-api-connection-connection-endpoints) to use when generating requests to SlicingDice.
+* `port (int)` - (Default: 80) Port to connect to when generating requests. Particularly useful when connect to `http://localhost`.
 
 ### `void index(JsonObject& query)`
 Index data to existing entities or create new entities, if necessary. This method corresponds to a [POST request at /index](http://panel.slicingdice.com/docs/#api-details-api-endpoints-post-index).
@@ -120,8 +107,8 @@ void setup() {
     byte ip[] = { 192, 168, 0, 10 };
     byte gateway[] = { 192, 168, 0, 1 }; 
     byte subnet[] = { 255, 255, 255, 0 };
-    byte dnxs[] = { 8, 8, 8, 8 };
-    Ethernet.begin(mac, ip, dnxs, gateway, subnet);
+    byte dns[] = { 8, 8, 8, 8 };
+    Ethernet.begin(mac, ip, dns, gateway, subnet);
 }
 
 // Send an indexation command to Slicing Dice API and print the result
