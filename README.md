@@ -23,7 +23,7 @@ Please refer to the [SlicingDice official documentation](http://panel.slicingdic
 // If you need a demo API key visit: https://panel.slicingdice.com/docs/#api-details-api-connection-api-keys-demo-key
 String apiKey = String("YOUR_API_KEY");
 // if false will use test end-point, otherwise production end-point
-int useProduction = false;
+boolean useProduction = false;
 SlicingDice sd = SlicingDice(apiKey, useProduction);
 
 void setup() {
@@ -106,7 +106,7 @@ Index data to existing entities or create new entities, if necessary. This metho
 // If you need a demo API key visit: https://panel.slicingdice.com/docs/#api-details-api-connection-api-keys-demo-key
 String apiKey = String("YOUR_API_KEY");
 // if false will use test end-point, otherwise production end-point
-int useProduction = false;
+boolean useProduction = false;
 SlicingDice sd = SlicingDice(apiKey, useProduction);
 
 void setup() {
