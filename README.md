@@ -20,36 +20,40 @@ Please refer to the [SlicingDice official documentation](http://panel.slicingdic
 #include <SlicingDice.h>
 #include <ArduinoJson.h>
 
-#define BUFFER_SIZE 256
-
-SlicingDice sd = SlicingDice("API_KEY");
+// If you need a demo API key visit: https://panel.slicingdice.com/docs/#api-details-api-connection-api-keys-demo-key
+String apiKey = String("YOUR_API_KEY");
+// if false will use test end-point, otherwise production end-point
+int useProduction = false;
+SlicingDice sd = SlicingDice(apiKey, useProduction);
 
 void setup() {
-    // Open serial communication and wait for port to open
+    // Open serial communications and wait for port to open:
     Serial.begin(9600);
     while (!Serial) {
     }
 
-    // Arduino network settings
+    // Arduino network settings, should match your internet connection properties
     byte mac[] = {  0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
-    byte ip[] = { 192, 168, 1, 10 };
-    byte gateway[] = { 192, 168, 1, 1 };
+    byte ip[] = { 192, 168, 0, 10 };
+    byte gateway[] = { 192, 168, 0, 1 }; 
     byte subnet[] = { 255, 255, 255, 0 };
-    byte dns[] = { 8, 8, 8, 8 };
-    Ethernet.begin(mac, ip, dns, gateway, subnet);
+    byte dnxs[] = { 8, 8, 8, 8 };
+    Ethernet.begin(mac, ip, dnxs, gateway, subnet);
 }
 
+// Send an indexation command to Slicing Dice API and print the result
 void loop() {
-    // Create JSON object
-    StaticJsonBuffer<BUFFER_SIZE> jsonBuffer;
+    StaticJsonBuffer<200> jsonBuffer;
     JsonObject& queryIndex = jsonBuffer.createObject();
     JsonObject& nestedQueryIndex = queryIndex.createNestedObject("user1@slicingdice.com");
     nestedQueryIndex["age"] = 22;
+    // Auto create non-existent fields
+    queryIndex["auto-create-fields"] = true;
 
     // Index object
     sd.index(queryIndex);
 
-    // Print response for debugging
+    // Print result for debugging
     Serial.print("Status code: ");
     Serial.println(sd.statusCode);
     Serial.println(sd.response);
@@ -71,8 +75,9 @@ Whether you want to test the client installation or simply check more examples o
 
 ### Constructors
 
-`SlicingDice(const char* apiKey)`
+`SlicingDice(const char* apiKey, boolean production)`
 * `apiKey (const char*)` - [API key](http://panel.slicingdice.com/docs/#api-details-api-connection-api-keys) to authenticate requests with the SlicingDice API.
+* `production(boolean)` - If true the client will send requests to production end-point, otherwise to tests end-point
 
 `SlicingDice(const char* apiKey, const char* host)`
 * `apiKey (const char*)` - [API key](http://panel.slicingdice.com/docs/#api-details-api-connection-api-keys) to authenticate requests with the SlicingDice API.
@@ -83,6 +88,12 @@ Whether you want to test the client installation or simply check more examples o
 * `host (const char*)` - [Connection endpoint](http://panel.slicingdice.com/docs/#api-details-api-connection-connection-endpoints) to use when generating requests to SlicingDice.
 * `port (int)` - Port to connect to when generating requests. Particularly useful when connect to `http://localhost`.
 
+`SlicingDice(const char* apiKey, const char* host, int port, boolean production)`
+* `apiKey (const char*)` - [API key](http://panel.slicingdice.com/docs/#api-details-api-connection-api-keys) to authenticate requests with the SlicingDice API.
+* `host (const char*)` - [Connection endpoint](http://panel.slicingdice.com/docs/#api-details-api-connection-connection-endpoints) to use when generating requests to SlicingDice.
+* `port (int)` - Port to connect to when generating requests. Particularly useful when connect to `http://localhost`.
+* `production(boolean)` - If true the client will send requests to production end-point, otherwise to tests end-point
+
 ### `void index(JsonObject& query)`
 Index data to existing entities or create new entities, if necessary. This method corresponds to a [POST request at /index](http://panel.slicingdice.com/docs/#api-details-api-endpoints-post-index).
 
@@ -92,93 +103,40 @@ Index data to existing entities or create new entities, if necessary. This metho
 #include <SlicingDice.h>
 #include <ArduinoJson.h>
 
-#define BUFFER_SIZE 256
-
-SlicingDice sd = SlicingDice("API_KEY");
+// If you need a demo API key visit: https://panel.slicingdice.com/docs/#api-details-api-connection-api-keys-demo-key
+String apiKey = String("YOUR_API_KEY");
+// if false will use test end-point, otherwise production end-point
+int useProduction = false;
+SlicingDice sd = SlicingDice(apiKey, useProduction);
 
 void setup() {
-    // Open serial communication and wait for port to open
+    // Open serial communications and wait for port to open:
     Serial.begin(9600);
     while (!Serial) {
     }
 
-    // Arduino network settings
+    // Arduino network settings, should match your internet connection properties
     byte mac[] = {  0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
-    byte ip[] = { 192, 168, 1, 10 };
-    byte gateway[] = { 192, 168, 1, 1 };
+    byte ip[] = { 192, 168, 0, 10 };
+    byte gateway[] = { 192, 168, 0, 1 }; 
     byte subnet[] = { 255, 255, 255, 0 };
-    byte dns[] = { 8, 8, 8, 8 };
-    Ethernet.begin(mac, ip, dns, gateway, subnet);
+    byte dnxs[] = { 8, 8, 8, 8 };
+    Ethernet.begin(mac, ip, dnxs, gateway, subnet);
 }
 
+// Send an indexation command to Slicing Dice API and print the result
 void loop() {
-    // Create JSON object
-    StaticJsonBuffer<BUFFER_SIZE> jsonBuffer;
+    StaticJsonBuffer<200> jsonBuffer;
     JsonObject& queryIndex = jsonBuffer.createObject();
     JsonObject& nestedQueryIndex = queryIndex.createNestedObject("user1@slicingdice.com");
     nestedQueryIndex["age"] = 22;
+    // Auto create non-existent fields
+    queryIndex["auto-create-fields"] = true;
 
     // Index object
     sd.index(queryIndex);
 
-    // Print response for debugging
-    Serial.print("Status code: ");
-    Serial.println(sd.statusCode);
-    Serial.println(sd.response);
-}
-```
-
-#### Output example
-
-```
-Status code: 200
-{
-    "status": "success",
-    "indexed-entities": 1,
-    "indexed-fields": 1,
-    "took": 0.023
-}
-```
-
-### `void index(JsonObject& query, boolean autoCreateFields)`
-Index data to existing entities or create new entities, if necessary. This method corresponds to a [POST request at /index](http://panel.slicingdice.com/docs/#api-details-api-endpoints-post-index).
-
-#### Request example
-
-```c
-#include <SlicingDice.h>
-#include <ArduinoJson.h>
-
-#define BUFFER_SIZE 256
-
-SlicingDice sd = SlicingDice("API_KEY");
-
-void setup() {
-    // Open serial communication and wait for port to open
-    Serial.begin(9600);
-    while (!Serial) {
-    }
-
-    // Arduino network settings
-    byte mac[] = {  0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
-    byte ip[] = { 192, 168, 1, 10 };
-    byte gateway[] = { 192, 168, 1, 1 };
-    byte subnet[] = { 255, 255, 255, 0 };
-    byte dns[] = { 8, 8, 8, 8 };
-    Ethernet.begin(mac, ip, dns, gateway, subnet);
-}
-
-void loop() {
-    // Create JSON object
-    StaticJsonBuffer<BUFFER_SIZE> jsonBuffer;
-    JsonObject& queryIndex = jsonBuffer.createObject();
-    JsonObject& nestedQueryIndex = queryIndex.createNestedObject("user1@slicingdice.com");
-    nestedQueryIndex["age"] = 22;
-
-    // Index object
-    sd.index(queryIndex, true);
-
-    // Print response for debugging
+    // Print result for debugging
     Serial.print("Status code: ");
     Serial.println(sd.statusCode);
     Serial.println(sd.response);
