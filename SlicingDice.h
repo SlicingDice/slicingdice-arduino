@@ -7,10 +7,7 @@
 class SlicingDice {
 
 public:
-	SlicingDice(String apiUserKey);
-	SlicingDice(String apiUserKey, const char* customHost);
-	SlicingDice(String apiUserKey, const char* customHost, int customPort);
-  	SlicingDice(String apiUserKey, const char* customHost, int customPort, boolean production);
+	SlicingDice(String apiUserKey, boolean useProduction = false, const char* customHost = "api.slicingdice.com", int customPort=80);
 
 	void index(JsonObject& query);
 	int statusCode;
