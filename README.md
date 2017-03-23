@@ -10,6 +10,12 @@ If you are new to SlicingDice, check our [quickstart guide](http://panel.slicing
 
 Please refer to the [SlicingDice official documentation](http://panel.slicingdice.com/docs/) for more information on [analytics databases](http://panel.slicingdice.com/docs/#analytics-concepts), [data modeling](http://panel.slicingdice.com/docs/#data-modeling), [indexing](http://panel.slicingdice.com/docs/#data-indexing), [querying](http://panel.slicingdice.com/docs/#data-querying), [limitations](http://panel.slicingdice.com/docs/#current-slicingdice-limitations) and [API details](http://panel.slicingdice.com/docs/#api-details).
 
+### Note
+
+SlicingDice's Arduino client currently supports only indexing commands. Let us
+know if you application requires Arduino to query data from SlicingDice
+and we'll make sure to add this feature to our backlog.
+
 ## Installing
 
 [Click here]() to download our Arduino client as a `zip` file. After downloading it, you only need to import the zipped contents into your project path.
@@ -35,7 +41,7 @@ void setup() {
     // Arduino network settings, should match your internet connection properties
     byte mac[] = {  0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
     byte ip[] = { 192, 168, 0, 10 };
-    byte gateway[] = { 192, 168, 0, 1 }; 
+    byte gateway[] = { 192, 168, 0, 1 };
     byte subnet[] = { 255, 255, 255, 0 };
     byte dns[] = { 8, 8, 8, 8 };
     Ethernet.begin(mac, ip, dns, gateway, subnet);
@@ -105,7 +111,7 @@ void setup() {
     // Arduino network settings, should match your internet connection properties
     byte mac[] = {  0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
     byte ip[] = { 192, 168, 0, 10 };
-    byte gateway[] = { 192, 168, 0, 1 }; 
+    byte gateway[] = { 192, 168, 0, 1 };
     byte subnet[] = { 255, 255, 255, 0 };
     byte dns[] = { 8, 8, 8, 8 };
     Ethernet.begin(mac, ip, dns, gateway, subnet);
