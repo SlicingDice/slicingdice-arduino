@@ -28,7 +28,12 @@ void loop() {
     JsonObject& insertion = jsonBuffer.createObject();
     JsonObject& nestedQueryInsertion = insertion.createNestedObject("user1@slicingdice.com");
     nestedQueryInsertion["age"] = 22;
-    insertion["auto-create-fields"] = true;
+
+    // Auto create non-existent fields
+    JsonArray& autoCreate = insertion.createNestedArray("auto-create");
+    autoCreate.add("table");
+    autoCreate.add("column");
+    
     sd.insert(insertion);
     Serial.print("Status code: ");
     Serial.println(sd.statusCode);

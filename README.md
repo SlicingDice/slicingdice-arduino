@@ -53,8 +53,11 @@ void loop() {
     JsonObject& data = jsonBuffer.createObject();
     JsonObject& nestedInsertion = data.createNestedObject("user1@slicingdice.com");
     nestedInsertion["age"] = 22;
+
     // Auto create non-existent fields
-    data["auto-create-fields"] = true;
+    JsonArray& autoCreate = data.createNestedArray("auto-create");
+    autoCreate.add("table");
+    autoCreate.add("column");
 
     // Insert object
     sd.insert(data);
@@ -123,8 +126,11 @@ void loop() {
     JsonObject& data = jsonBuffer.createObject();
     JsonObject& nestedInsertion = data.createNestedObject("user1@slicingdice.com");
     nestedInsertion["age"] = 22;
+    
     // Auto create non-existent fields
-    data["auto-create-fields"] = true;
+    JsonArray& autoCreate = data.createNestedArray("auto-create");
+    autoCreate.add("table");
+    autoCreate.add("column");
 
     // Insert object
     sd.insert(data);
