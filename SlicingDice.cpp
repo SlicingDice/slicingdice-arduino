@@ -11,11 +11,11 @@ void SlicingDice::construct(String apiUserKey, const char* customHost, int custo
     useProduction = production;
 }
 
-/* Index data on Slicing Dice API
+/* Insert data on Slicing Dice API
  *
  * query - the query to send to Slicing Dice API
  */
-void SlicingDice::index(JsonObject& query) {
+void SlicingDice::insert(JsonObject& query) {
     char queryConverted[query.measureLength() +  1];
     query.printTo(queryConverted, sizeof(queryConverted));
     makeRequest(queryConverted);
@@ -37,7 +37,7 @@ void SlicingDice::makeRequest(const char* query){
         testEndPoint = String("test/");
     }
 
-    client.println("POST /v1/" + testEndPoint + "index HTTP/1.1");
+    client.println("POST /v1/" + testEndPoint + "insert HTTP/1.1");
     client.println(F("Content-Type: application/json"));
     String hostString = String(host);
     client.println("Host: " + hostString);
