@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 ### Added
+- CLIENT: Rename method index() to insert()
 - CLIENT: Create requester and main method
 
 ## [0.3] - 2016-09-15

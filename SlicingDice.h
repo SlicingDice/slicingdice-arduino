@@ -9,7 +9,7 @@ class SlicingDice {
 public:
 	SlicingDice(String apiUserKey, boolean useProduction = false, const char* customHost = "api.slicingdice.com", int customPort=80);
 
-	void index(JsonObject& query);
+	void insert(JsonObject& data);
 	int statusCode;
 	String response;
 

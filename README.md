@@ -8,11 +8,11 @@ Official Arduino client for [SlicingDice](http://www.slicingdice.com/), Data War
 
 If you are new to SlicingDice, check our [quickstart guide](http://panel.slicingdice.com/docs/#quickstart-guide) and learn to use it in 15 minutes.
 
-Please refer to the [SlicingDice official documentation](http://panel.slicingdice.com/docs/) for more information on [analytics databases](http://panel.slicingdice.com/docs/#analytics-concepts), [data modeling](http://panel.slicingdice.com/docs/#data-modeling), [indexing](http://panel.slicingdice.com/docs/#data-indexing), [querying](http://panel.slicingdice.com/docs/#data-querying), [limitations](http://panel.slicingdice.com/docs/#current-slicingdice-limitations) and [API details](http://panel.slicingdice.com/docs/#api-details).
+Please refer to the [SlicingDice official documentation](http://panel.slicingdice.com/docs/) for more information on [analytics databases](http://panel.slicingdice.com/docs/#analytics-concepts), [data modeling](http://panel.slicingdice.com/docs/#data-modeling), [data insertion](http://panel.slicingdice.com/docs/#data-insertion), [querying](http://panel.slicingdice.com/docs/#data-querying), [limitations](http://panel.slicingdice.com/docs/#current-slicingdice-limitations) and [API details](http://panel.slicingdice.com/docs/#api-details).
 
 ### Note
 
-SlicingDice's Arduino client currently supports only indexing commands. Let us
+SlicingDice's Arduino client currently supports only data insert commands. Let us
 know if you application requires Arduino to query data from SlicingDice
 and we'll make sure to add this feature to our backlog.
 
@@ -47,17 +47,20 @@ void setup() {
     Ethernet.begin(mac, ip, dns, gateway, subnet);
 }
 
-// Send an indexation command to Slicing Dice API and print the result
+// Send an insert command to Slicing Dice API and print the result
 void loop() {
     StaticJsonBuffer<200> jsonBuffer;
-    JsonObject& queryIndex = jsonBuffer.createObject();
-    JsonObject& nestedQueryIndex = queryIndex.createNestedObject("user1@slicingdice.com");
-    nestedQueryIndex["age"] = 22;
-    // Auto create non-existent fields
-    queryIndex["auto-create-fields"] = true;
+    JsonObject& data = jsonBuffer.createObject();
+    JsonObject& nestedInsertion = data.createNestedObject("user1@slicingdice.com");
+    nestedInsertion["age"] = 22;
 
-    // Index object
-    sd.index(queryIndex);
+    // Auto create non-existent fields
+    JsonArray& autoCreate = data.createNestedArray("auto-create");
+    autoCreate.add("table");
+    autoCreate.add("column");
+
+    // Insert object
+    sd.insert(data);
 
     // Print result for debugging
     Serial.print("Status code: ");
@@ -72,12 +75,12 @@ Whether you want to test the client installation or simply check more examples o
 
 ## Reference
 
-`SlicingDice` encapsulates logic for sending requests to the [index endpoint](http://panel.slicingdice.com/docs/#api-details-api-endpoints-post-index).
+`SlicingDice` encapsulates logic for sending requests to the [insert endpoint](http://panel.slicingdice.com/docs/#api-details-api-endpoints-post-insert).
 
 ### Attributes
 
-* `statusCode (int)` - HTTP status code after indexing to SlicingDice. Should be `200` in ordinary circumstances or one of the HTTP requests defined at the [API errors](http://panel.slicingdice.com/docs/#api-details-api-errors) section.
-* `response (String)` - Response after indexing data. Useful for debugging purposes.
+* `statusCode (int)` - HTTP status code after inserting to SlicingDice. Should be `200` in ordinary circumstances or one of the HTTP requests defined at the [API errors](http://panel.slicingdice.com/docs/#api-details-api-errors) section.
+* `response (String)` - Response after inserting data. Useful for debugging purposes.
 
 ### Constructors
 
@@ -87,8 +90,8 @@ Whether you want to test the client installation or simply check more examples o
 * `host (const char*)` - (Default: api.slicingdice.com) [Connection endpoint](http://panel.slicingdice.com/docs/#api-details-api-connection-connection-endpoints) to use when generating requests to SlicingDice.
 * `port (int)` - (Default: 80) Port to connect to when generating requests. Particularly useful when connect to `http://localhost`.
 
-### `void index(JsonObject& query)`
-Index data to existing entities or create new entities, if necessary. This method corresponds to a [POST request at /index](http://panel.slicingdice.com/docs/#api-details-api-endpoints-post-index).
+### `void insert(JsonObject& query)`
+Insert data to existing entities or create new entities, if necessary. This method corresponds to a [POST request at /insert](http://panel.slicingdice.com/docs/#api-details-api-endpoints-post-insert).
 
 #### Request example
 
@@ -117,17 +120,20 @@ void setup() {
     Ethernet.begin(mac, ip, dns, gateway, subnet);
 }
 
-// Send an indexation command to Slicing Dice API and print the result
+// Send an insertation command to Slicing Dice API and print the result
 void loop() {
     StaticJsonBuffer<200> jsonBuffer;
-    JsonObject& queryIndex = jsonBuffer.createObject();
-    JsonObject& nestedQueryIndex = queryIndex.createNestedObject("user1@slicingdice.com");
-    nestedQueryIndex["age"] = 22;
+    JsonObject& data = jsonBuffer.createObject();
+    JsonObject& nestedInsertion = data.createNestedObject("user1@slicingdice.com");
+    nestedInsertion["age"] = 22;
+    
     // Auto create non-existent fields
-    queryIndex["auto-create-fields"] = true;
+    JsonArray& autoCreate = data.createNestedArray("auto-create");
+    autoCreate.add("table");
+    autoCreate.add("column");
 
-    // Index object
-    sd.index(queryIndex);
+    // Insert object
+    sd.insert(data);
 
     // Print result for debugging
     Serial.print("Status code: ");
@@ -142,8 +148,8 @@ void loop() {
 Status code: 200
 {
     "status": "success",
-    "indexed-entities": 1,
-    "indexed-fields": 1,
+    "inserted-entities": 1,
+    "inserted-fields": 1,
     "took": 0.023
 }
 ```

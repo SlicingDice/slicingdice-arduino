@@ -22,14 +22,19 @@ void setup() {
     Ethernet.begin(mac, ip, dns, gateway, subnet);
 }
 
-// Send an indexation command to Slicing Dice API and print the result
+// Send an insert command to Slicing Dice API and print the result
 void loop() {
     StaticJsonBuffer<200> jsonBuffer;
-    JsonObject& queryIndex = jsonBuffer.createObject();
-    JsonObject& nestedQueryIndex = queryIndex.createNestedObject("user1@slicingdice.com");
-    nestedQueryIndex["age"] = 22;
-    queryIndex["auto-create-fields"] = true;
-    sd.index(queryIndex);
+    JsonObject& insertion = jsonBuffer.createObject();
+    JsonObject& nestedQueryInsertion = insertion.createNestedObject("user1@slicingdice.com");
+    nestedQueryInsertion["age"] = 22;
+
+    // Auto create non-existent fields
+    JsonArray& autoCreate = insertion.createNestedArray("auto-create");
+    autoCreate.add("table");
+    autoCreate.add("column");
+    
+    sd.insert(insertion);
     Serial.print("Status code: ");
     Serial.println(sd.statusCode);
     Serial.println(sd.response);
