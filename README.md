@@ -1,4 +1,4 @@
-# SlicingDice Official Arduino Client (v1.0)
+# SlicingDice Official Arduino Client (v2.0.0)
 
 Official Arduino client for [SlicingDice](http://www.slicingdice.com/), Data Warehouse and Analytics Database as a Service.  
 

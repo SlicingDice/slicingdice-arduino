@@ -1,9 +1,10 @@
 # Change Log
 
-## [Unreleased]
+## [2.0.0]
 ### Added
 - CLIENT: Rename method index() to insert()
 - CLIENT: Create requester and main method
+- CLIENT: Rename SlicingDice API endpoints
 
 ## [0.3] - 2016-09-15
 ### Added
