@@ -6,9 +6,9 @@ Official Arduino client for [SlicingDice](http://www.slicingdice.com/), Data War
 
 ## Documentation
 
-If you are new to SlicingDice, check our [quickstart guide](http://panel.slicingdice.com/docs/#quickstart-guide) and learn to use it in 15 minutes.
+If you are new to SlicingDice, check our [quickstart guide](https://docs.slicingdice.com/docs/quickstart-guide) and learn to use it in 15 minutes.
 
-Please refer to the [SlicingDice official documentation](http://panel.slicingdice.com/docs/) for more information on [analytics databases](http://panel.slicingdice.com/docs/#analytics-concepts), [data modeling](http://panel.slicingdice.com/docs/#data-modeling), [data insertion](http://panel.slicingdice.com/docs/#data-insertion), [querying](http://panel.slicingdice.com/docs/#data-querying), [limitations](http://panel.slicingdice.com/docs/#current-slicingdice-limitations) and [API details](http://panel.slicingdice.com/docs/#api-details).
+Please refer to the [SlicingDice official documentation](https://docs.slicingdice.com/) for more information on [how to create a database](https://docs.slicingdice.com/docs/how-to-create-a-database), [how to insert data](https://docs.slicingdice.com/docs/how-to-insert-data), [how to make queries](https://docs.slicingdice.com/docs/how-to-make-queries), [how to create columns](https://docs.slicingdice.com/docs/how-to-create-columns), [SlicingDice restrictions](https://docs.slicingdice.com/docs/current-restrictions) and [API details](https://docs.slicingdice.com/docs/api-details).
 
 ### Note
 
@@ -26,7 +26,7 @@ and we'll make sure to add this feature to our backlog.
 #include <SlicingDice.h>
 #include <ArduinoJson.h>
 
-// If you need a demo API key visit: https://panel.slicingdice.com/docs/#api-details-api-connection-api-keys-demo-key
+// If you need a demo API key visit: https://docs.slicingdice.com/docs/try-before-you-buy
 String apiKey = String("YOUR_API_KEY");
 // if false will use test end-point, otherwise production end-point
 boolean useProduction = false;
@@ -75,23 +75,23 @@ Whether you want to test the client installation or simply check more examples o
 
 ## Reference
 
-`SlicingDice` encapsulates logic for sending requests to the [insert endpoint](http://panel.slicingdice.com/docs/#api-details-api-endpoints-post-insert).
+`SlicingDice` encapsulates logic for sending requests to the [insert endpoint](https://docs.slicingdice.com/docs/how-to-insert-data).
 
 ### Attributes
 
-* `statusCode (int)` - HTTP status code after inserting to SlicingDice. Should be `200` in ordinary circumstances or one of the HTTP requests defined at the [API errors](http://panel.slicingdice.com/docs/#api-details-api-errors) section.
+* `statusCode (int)` - HTTP status code after inserting to SlicingDice. Should be `200` in ordinary circumstances or one of the HTTP requests defined at the [API errors](https://docs.slicingdice.com/docs/api-errors) section.
 * `response (String)` - Response after inserting data. Useful for debugging purposes.
 
 ### Constructors
 
 `SlicingDice(const char* apiKey, boolean production, const char* host, int port)`
-* `apiKey (const char*)` - [API key](http://panel.slicingdice.com/docs/#api-details-api-connection-api-keys) to authenticate requests with the SlicingDice API.
+* `apiKey (const char*)` - [API key](https://docs.slicingdice.com/docs/api-keys) to authenticate requests with the SlicingDice API.
 * `production(boolean)` - (Default: true) If true the client will send requests to production end-point, otherwise to tests end-point.
-* `host (const char*)` - (Default: api.slicingdice.com) [Connection endpoint](http://panel.slicingdice.com/docs/#api-details-api-connection-connection-endpoints) to use when generating requests to SlicingDice.
+* `host (const char*)` - (Default: api.slicingdice.com) [Connection endpoint](https://docs.slicingdice.com/docs/api-connection-and-headers) to use when generating requests to SlicingDice.
 * `port (int)` - (Default: 80) Port to connect to when generating requests. Particularly useful when connect to `http://localhost`.
 
 ### `void insert(JsonObject& query)`
-Insert data to existing entities or create new entities, if necessary. This method corresponds to a [POST request at /insert](http://panel.slicingdice.com/docs/#api-details-api-endpoints-post-insert).
+Insert data to existing entities or create new entities, if necessary. This method corresponds to a [POST request at /insert](https://docs.slicingdice.com/docs/how-to-insert-data).
 
 #### Request example
 
@@ -99,7 +99,7 @@ Insert data to existing entities or create new entities, if necessary. This meth
 #include <SlicingDice.h>
 #include <ArduinoJson.h>
 
-// If you need a demo API key visit: https://panel.slicingdice.com/docs/#api-details-api-connection-api-keys-demo-key
+// If you need a demo API key visit: https://docs.slicingdice.com/docs/try-before-you-buy
 String apiKey = String("YOUR_API_KEY");
 // if false will use test end-point, otherwise production end-point
 boolean useProduction = false;
