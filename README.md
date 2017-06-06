@@ -101,7 +101,7 @@ Insert data to existing entities or create new entities, if necessary. This meth
 
 // If you need a demo API key visit: https://docs.slicingdice.com/docs/try-before-you-buy
 String apiKey = String("YOUR_API_KEY");
-// if false will use test end-point, otherwise production end-point
+// if false will use test endpoint, otherwise production endpoint
 boolean useProduction = false;
 SlicingDice sd = SlicingDice(apiKey, useProduction);
 
@@ -120,7 +120,7 @@ void setup() {
     Ethernet.begin(mac, ip, dns, gateway, subnet);
 }
 
-// Send an insertation command to Slicing Dice API and print the result
+// Send an insertion request to Slicing Dice API and print the result
 void loop() {
     StaticJsonBuffer<200> jsonBuffer;
     JsonObject& data = jsonBuffer.createObject();
