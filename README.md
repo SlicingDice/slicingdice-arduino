@@ -1,8 +1,10 @@
 # SlicingDice Official Arduino Client (v2.0.0)
 
-Official Arduino client for [SlicingDice](http://www.slicingdice.com/), Data Warehouse and Analytics Database as a Service.  
+Official Arduino client for [SlicingDice - Data Warehouse and Analytics Database as a Service](https://www.slicingdice.com/).
 
-[SlicingDice](http://www.slicingdice.com/) is a serverless, API-based, easy-to-use and really cost-effective alternative to Amazon Redshift and Google BigQuery.
+[SlicingDice](http://www.slicingdice.com/) is a serverless, SQL & API-based, easy-to-use and really cost-effective alternative to Amazon Redshift and Google BigQuery.
+
+### Code Quality: [![Codacy Badge](https://api.codacy.com/project/badge/Grade/04348f844baf4342afbb32b70ec01794)](https://www.codacy.com/app/SimbioseVentures/slicingdice-arduino?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=SlicingDice/slicingdice-arduino&amp;utm_campaign=Badge_Grade)
 
 ## Documentation
 
